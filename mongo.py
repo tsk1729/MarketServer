@@ -57,7 +57,7 @@ class MongoRepository:
 
 
 class JobRepository:
-    def __init__(self, collection: AsyncCollection):
+    def __init__(self, collection: Collection):
         self.collection = collection
 
     async def add_job(self, id: str, user_id: str, func_name: str, args: dict, target_time: datetime):

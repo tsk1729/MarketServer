@@ -1,7 +1,7 @@
 import urllib
 from datetime import datetime
 
-from pymongo import AsyncMongoClient
+from pymongo import  MongoClient
 from pymongo.asynchronous.collection import AsyncCollection
 from typing import Any
 import certifi
@@ -91,7 +91,7 @@ class JobRepository:
 
 class RepositoryManager:
     def __init__(self, uri: str, db_name: str):
-        self.client = AsyncMongoClient(uri, tlsCAFile=certifi.where())
+        self.client = MongoClient(uri, tlsCAFile=certifi.where())
         self.db = self.client[db_name]
         self.users = MongoRepository(self.db["users"])
         self.paid_subscribers = MongoRepository(self.db["paid_subscribers"])

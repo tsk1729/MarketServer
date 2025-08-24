@@ -8,8 +8,11 @@ from mongo import repo_manager
 
 async def save_creator(data,user_id):
     data =data.dict()
-    update = await repo_manager.creators.upsert({"_id":user_id},data)
-    logger.info(f"Updated lines: Modified: {update.modified_count},Matched:{update.matched_count}")
+    try:
+        update = await repo_manager.creators.upsert({"_id":user_id},data)
+        logger.info(f"Updated lines: Modified: {update.modified_count},Matched:{update.matched_count}")
+    except Exception as e:
+        logger.error(e)
     return JSONResponse(status_code=200,content={'msg':'saved creator data'})
 
 

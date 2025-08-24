@@ -2,9 +2,9 @@ import urllib
 from datetime import datetime
 
 from pymongo import  MongoClient
-from pymongo.asynchronous.collection import AsyncCollection
 from typing import Any
 import certifi
+from pymongo.synchronous.collection import Collection
 
 username = "sandeep"
 password = "peedn@sT7"
@@ -14,7 +14,7 @@ MONGO_STRING = f"mongodb+srv://{encoded_username}:{encoded_password}@owlit-clust
 DATABASE_NAME = "owlit"
 
 class MongoRepository:
-    def __init__(self, collection: AsyncCollection):
+    def __init__(self, collection: Collection):
         self.collection = collection
 
     async def create(self, data: dict) -> Any:

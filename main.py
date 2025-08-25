@@ -1,10 +1,12 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
+from companies.controller import company_controller
 from creators.controller import creator_controller
 
 app = FastAPI()
 app.include_router(creator_controller)
+app.include_router(company_controller)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

@@ -101,6 +101,7 @@ class RepositoryManager:
         self.transactions = MongoRepository(self.db["transactions"])
         self.llmcost = MongoRepository(self.db["llm_cost"])
         self.creators = MongoRepository(self.db["creators"])
+        self.companies = MongoRepository(self.db["agencies"])
 
 
 repo_manager = RepositoryManager(uri=MONGO_STRING, db_name=DATABASE_NAME)

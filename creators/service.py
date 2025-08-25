@@ -15,4 +15,4 @@ def save_creator(data,user_id):
 
 
 def get_creator(user_id):
-    return  repo_manager.creators.read({"_id":user_id})
+    return repo_manager.creators.read({"_id":user_id})

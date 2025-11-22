@@ -15,3 +15,20 @@ class FormData(BaseModel):
     youtubeLink: Optional[str] = None
     twitterLink: Optional[str] = None
 
+    model_config = {
+        "json_schema_extra": {
+            "example": {
+                "name": "Akash Mehra",
+                "mobile": "9876543210",
+                "gmail": "akash@example.com",
+                "address": "22, Sunshine Ave, Mumbai",
+                "pincode": "400001",
+                "languages": ["English", "Hindi", "Marathi"],
+                "chargePerPostMin": "2000",
+                "chargePerPostMax": "3500",
+                "instagramId": "influencer.akash",
+                "youtubeLink": "https://youtube.com/user/akashmehra",
+                "twitterLink": "https://twitter.com/akashmehra"
+            }
+        }
+    }

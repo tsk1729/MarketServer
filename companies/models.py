@@ -34,7 +34,6 @@ class CompanyPost(BaseModel):
     googleMapsLink: str
     address: str
     guidelines: str
-    lastDate: str
     image: str
     category: str = "Food"
 
@@ -73,7 +72,6 @@ class CompanyPost(BaseModel):
                 "googleMapsLink": "https://www.google.com/maps/place/Indiranagar,+Bengaluru",
                 "address": "12th Main, Indiranagar, Bengaluru, Karnataka 560038",
                 "guidelines": "Post 1 reel & 2 stories. Use #FlavorHubReels and tag @flavorhubofficial. No AI-generated photos allowed.",
-                "lastDate": "2025-11-30",
                 "image": "https://placehold.co/200x200/png?text=Flavor+Hub+Logo",
                 "category": "Food"
             }

@@ -34,7 +34,6 @@ class CompanyPost(BaseModel):
     googleMapsLink: str
     address: str
     guidelines: str
-    image: str
     category: str = "Food"
 
     model_config = {
@@ -72,7 +71,6 @@ class CompanyPost(BaseModel):
                 "googleMapsLink": "https://www.google.com/maps/place/Indiranagar,+Bengaluru",
                 "address": "12th Main, Indiranagar, Bengaluru, Karnataka 560038",
                 "guidelines": "Post 1 reel & 2 stories. Use #FlavorHubReels and tag @flavorhubofficial. No AI-generated photos allowed.",
-                "image": "https://placehold.co/200x200/png?text=Flavor+Hub+Logo",
                 "category": "Food"
             }
         }

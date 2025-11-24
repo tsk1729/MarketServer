@@ -1,8 +1,6 @@
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr, constr
 
-
-# Nested model for keyValuePairs in CompanyPost
 class CompanyPostKeyValuePair(BaseModel):
     platform: str
     metric: str
@@ -30,7 +28,6 @@ class CompanyPost(BaseModel):
     minFollowers: str
     minFollowersUnit: str
     keyValuePairs: List[CompanyPostKeyValuePair]
-    restaurantImage: str
     googleMapsLink: str
     address: str
     guidelines: str
@@ -43,7 +40,7 @@ class CompanyPost(BaseModel):
                 "description": "Promote our newly launched fusion wraps and summer beverages. Ideal for food influencers.",
                 "itemsToPromote": "Mexican Wrap, Paneer Tikka Wrap, Summer Mojito",
                 "minFollowers": "2500",
-                "minFollowersUnit": "followers",
+                "minFollowersUnit": "K",
                 "keyValuePairs": [
                     {
                         "platform": "Instagram",
@@ -67,7 +64,6 @@ class CompanyPost(BaseModel):
                         "reward": "1200"
                     }
                 ],
-                "restaurantImage": "https://picsum.photos/seed/flavorhub1/800/500",
                 "googleMapsLink": "https://www.google.com/maps/place/Indiranagar,+Bengaluru",
                 "address": "12th Main, Indiranagar, Bengaluru, Karnataka 560038",
                 "guidelines": "Post 1 reel & 2 stories. Use #FlavorHubReels and tag @flavorhubofficial. No AI-generated photos allowed.",
@@ -77,8 +73,6 @@ class CompanyPost(BaseModel):
     }
 
 
-
-
 class CompanyData(BaseModel):
     companyName: str
     domain: str
@@ -86,11 +80,10 @@ class CompanyData(BaseModel):
     gmail: EmailStr
     website: Optional[str] = None
     contactPerson: str
-    mobile: constr(min_length=10, max_length=15)  # allows phone validation
+    mobile: constr(min_length=10, max_length=15)
     address: str
     companySize: str
     budgetRangeMin: str
     budgetRangeMax: str
     industries: List[str]
     preferredPlatforms: List[str]
-    description: str

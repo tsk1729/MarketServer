@@ -6,7 +6,7 @@ class CompanyPostKeyValuePair(BaseModel):
     metric: str
     value: str
     unit: str
-    reward: str
+    reward: int
 
     model_config = {
         "json_schema_extra": {
@@ -14,8 +14,8 @@ class CompanyPostKeyValuePair(BaseModel):
                 "platform": "Instagram",
                 "metric": "Followers",
                 "value": "2500",
-                "unit": "people",
-                "reward": "600"
+                "unit": "K",
+                "reward": 500
             }
         }
     }

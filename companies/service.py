@@ -23,7 +23,7 @@ def save_post(data, user_id):
     # Saves all fields, ensuring type consistency for Mongo
     if hasattr(data, "dict"):
         data = data.dict()
-    data['post_id'] = str(uuid.uuid4())
+    data['postId'] = str(uuid.uuid4())
     try:
         update = repo_manager.company_posts.add_to_array_field({"_id": user_id}, "posts", data)
         logger.info(f"Updated lines: Modified: {update.modified_count},Matched:{update.matched_count}")

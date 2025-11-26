@@ -36,8 +36,8 @@ def save_posts( data: str = Form(...),
             tags=None,
         )
         post = post.model_dump()
-        post["file_id"] = imgkit_resp.file_id
-        post["url"]  =imgkit_resp.url
+        post["fileId"] = imgkit_resp.file_id
+        post["restaurantImage"]  =imgkit_resp.url
         return service.save_post(post, str(user_id))
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Failed generate url for image : {str(e)}")

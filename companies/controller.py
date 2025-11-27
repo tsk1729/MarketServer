@@ -88,6 +88,13 @@ def get_posts(user_id: UUID):
     return service.get_posts(str(user_id))
 
 
+@company_controller.get("/post")
+def get_posts(user_id: UUID,postid: UUID):
+    return service.get_post(str(user_id),str(postid))
+
+
+
+
 @company_controller.get("/posts/key-value-example")
 def example_key_value_pairs(post: CompanyPost):
     return JSONResponse(content=post.dict())

@@ -35,3 +35,14 @@ def save_post(data, user_id):
 def get_posts(user_id):
     data = repo_manager.company_posts.read({"_id":user_id})
     return JSONResponse(status_code=200, content ={'data':data})
+
+
+def get_post(user_id,post_id):
+    data = repo_manager.company_posts.collection.find_one({
+            "_id": user_id,
+            "posts.postId": post_id
+        },{
+        'posts.$':1
+    }
+    )
+    return JSONResponse(status_code=200, content ={'data':data})

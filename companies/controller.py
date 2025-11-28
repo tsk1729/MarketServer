@@ -89,8 +89,8 @@ def get_posts(user_id: UUID):
 
 
 @company_controller.get("/post")
-def get_posts(user_id: UUID,postid: UUID):
-    return service.get_post(str(user_id),str(postid))
+def get_posts(user_id: UUID,post_id: UUID):
+    return service.get_post(str(user_id),str(post_id))
 
 
 

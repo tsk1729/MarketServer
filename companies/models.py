@@ -1,5 +1,12 @@
 from typing import List, Optional
 from pydantic import BaseModel, EmailStr, constr
+from enum import Enum
+
+class Status(str, Enum):
+    ACTIVE = "active"
+    PAUSE = "pause"
+    STOP = "stop"
+
 
 class CompanyPostKeyValuePair(BaseModel):
     platform: str

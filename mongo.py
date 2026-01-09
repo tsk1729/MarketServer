@@ -90,19 +90,10 @@ class RepositoryManager:
     def __init__(self, uri: str, db_name: str):
         self.client = MongoClient(uri, tlsCAFile=certifi.where())
         self.db = self.client[db_name]
+        self.creators = MongoRepository(self.db["influencers"])
+        self.companies = MongoRepository(self.db["brands"])
+        self.company_posts = MongoRepository(self.db["brand_posts"])
 
-        self.users = MongoRepository(self.db["users"])
-        self.paid_subscribers = MongoRepository(self.db["paid_subscribers"])
-        self.token_base = MongoRepository(self.db["token_base"])
-        self.posts = MongoRepository(self.db["posts"])
-        self.jobs = JobRepository(self.db["jobs"])
-        self.webhooks = MongoRepository(self.db["webhooks"])
-        self.admins = MongoRepository(self.db["admins"])
-        self.transactions = MongoRepository(self.db["transactions"])
-        self.llmcost = MongoRepository(self.db["llm_cost"])
-        self.creators = MongoRepository(self.db["creators"])
-        self.companies = MongoRepository(self.db["agencies"])
-        self.company_posts = MongoRepository(self.db["company_posts"])
 
 
 

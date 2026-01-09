@@ -7,7 +7,7 @@ from mongo import repo_manager
 def save_creator(data,user_id):
     data =data.dict()
     try:
-        update =  repo_manager.creators.upsert({"_id":user_id},data)
+        update =  repo_manager.influencers.upsert({"_id":user_id}, data)
         logger.info(f"Updated lines: Modified: {update.modified_count},Matched:{update.matched_count}")
     except Exception as e:
         logger.error(e)
@@ -15,4 +15,4 @@ def save_creator(data,user_id):
 
 
 def get_creator(user_id):
-    return repo_manager.creators.read({"_id":user_id})
+    return repo_manager.influencers.read({"_id":user_id})

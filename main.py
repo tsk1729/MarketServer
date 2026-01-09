@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from companies.controller import company_controller
-from creators.controller import creator_controller
+from brands.controller import company_controller
+from influencers.controller import creator_controller
 from imagekit.controller import imagekit_controller
 
 app = FastAPI()

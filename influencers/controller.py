@@ -2,8 +2,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, Body
 
-from creators import service
-from creators.models import FormData
+from influencers import service
+from influencers.models import FormData
 
 creator_controller = APIRouter(tags=["Influencers API"])
 @creator_controller.post("/creator")

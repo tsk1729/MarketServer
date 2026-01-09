@@ -3,8 +3,8 @@ from uuid import UUID
 from fastapi import APIRouter, Body, UploadFile, File, Form, HTTPException
 from starlette.responses import JSONResponse
 
-from companies import service
-from companies.models import CompanyData, CompanyPost, Status
+from brands import service
+from brands.models import CompanyData, CompanyPost, Status
 from imagekit.service import upload_image_service, delete_image_service
 from logger import logger
 from mongo import repo_manager

@@ -129,7 +129,7 @@ def update_post(user_id:UUID = Form(...),
             new_file_id = imgkit_resp.file_id
             post["fileId"] = new_file_id
             post["restaurantImage"] =imgkit_resp.url
-            response = repo_manager.company_posts.read({"_id":post_id})
+            response = repo_manager.brand_posts.read({"_id":post_id})
             existing_file_id  =response["fileId"]
             try:
                 delete_image_service(existing_file_id)

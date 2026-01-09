@@ -92,7 +92,8 @@ class RepositoryManager:
         self.db = self.client[db_name]
         self.creators = MongoRepository(self.db["influencers"])
         self.companies = MongoRepository(self.db["brands"])
-        self.company_posts = MongoRepository(self.db["brand_posts"])
+        self.brand_posts = MongoRepository(self.db["brand_posts"])
+        self.influencer_posts = MongoRepository(self.db["influencer_posts"])
 
 
 

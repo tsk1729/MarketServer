@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, HttpUrl
 from typing import List, Optional
 
 
@@ -32,3 +32,12 @@ class FormData(BaseModel):
             }
         }
     }
+
+class ProofSubmission(BaseModel):
+    description: str
+    link: HttpUrl
+
+    class Config:
+        json_encoders = {
+            HttpUrl: str
+        }

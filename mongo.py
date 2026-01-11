@@ -4,6 +4,8 @@ from pymongo import MongoClient
 from typing import Any
 import certifi
 from pymongo.collection import Collection  # <- corrected import
+from bson import ObjectId
+from typing import Optional, Dict, Any
 
 username = "sandeep"
 password = "peedn@sT7"
@@ -55,6 +57,59 @@ class MongoRepository:
         update_data = {"$pull": {array_field: item_data}}
         return self.collection.update_one(query, update_data)
 
+    def paginate(
+            self,
+            query: Optional[Dict[str, Any]] = None,
+            page_size: int = 10,
+            sort_field: str = "_id",
+            direction: int = 1,
+            last_value: Optional[str] = None,
+    ):
+        """
+        Cursor-based pagination for MongoDB (synchronous).
+
+        :param query: MongoDB filter
+        :param page_size: Number of items per page
+        :param sort_field: Field to sort & paginate on
+        :param direction: 1 (asc) or -1 (desc)
+        :param last_value: Cursor from previous page
+        :return: dict with data + next_cursor
+        """
+        query = (query or {}).copy()
+        if last_value in (None, "", "null", "None"):
+            last_value = None
+
+        # Apply cursor filter
+        if last_value:
+            operator = "$gt" if direction == 1 else "$lt"
+
+            query[sort_field] = {operator: last_value}
+
+        cursor = (
+            self.collection
+            .find(query)
+            .sort(sort_field, direction)
+            .limit(page_size + 1)  # fetch one extra to detect next page
+        )
+
+        documents = list(cursor)
+
+        has_next = len(documents) > page_size
+        documents = documents[:page_size]
+
+        next_cursor = None
+        if has_next:
+            next_cursor = str(documents[-1][sort_field])
+
+        # Serialize ObjectId for API response
+        for doc in documents:
+            doc["_id"] = str(doc["_id"])
+
+        return {
+            "data": documents,
+            "next_cursor": next_cursor
+        }
+
 
 class JobRepository:
     def __init__(self, collection: Collection):
@@ -93,7 +148,7 @@ class RepositoryManager:
         self.influencers = MongoRepository(self.db["influencers"])
         self.brands = MongoRepository(self.db["brands"])
         self.brand_posts = MongoRepository(self.db["brand_posts"])
-        self.influencer_posts = MongoRepository(self.db["influencer_posts"])
+        self.brand_post_submissions = MongoRepository(self.db["brand_post_submissions"])
 
 
 

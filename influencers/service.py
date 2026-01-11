@@ -1,3 +1,4 @@
+from math import trunc
 from typing import Optional, Dict, Any
 
 from starlette.responses import JSONResponse
@@ -138,7 +139,9 @@ def subscribe_to_brand(influencer_id, post_id):
 
 def is_influencer_subscribed(influencer_id, post_id):
     doc = repo_manager.brand_post_submissions.read({"_id":post_id, "influencer_id":influencer_id})
+
     if doc:
-        return True
+        return JSONResponse(status_code=200, content={'status':True, 'link':doc.get("link",""),"description":doc.get("description","")})
     else:
-        return False
+        return JSONResponse(status_code=200, content={'status':False, 'link':None,"description":None})
+

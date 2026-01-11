@@ -215,3 +215,5 @@ def update_post(user_id:UUID = Form(...),
 @company_controller.post("/update_status",summary= "Update brand post status")
 def pause(post_id:UUID,status: Status):
     return service.update_status(post_id,status.value)
+
+

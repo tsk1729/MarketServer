@@ -136,7 +136,7 @@ def subscribe_to_brand(influencer_id, post_id):
                                                   'message': "Updated proof successfully"})
 
 
-def is_creator_subscribed(influencer_id, post_id):
+def is_influencer_subscribed(influencer_id, post_id):
     doc = repo_manager.brand_post_submissions.read({"_id":post_id, "influencer_id":influencer_id})
     if doc:
         return True

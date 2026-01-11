@@ -9,18 +9,18 @@ from imagekit.service import upload_image_service, delete_image_service
 from logger import logger
 from mongo import repo_manager
 
-company_controller = APIRouter(tags=["Brands API"])
+brand_controller = APIRouter(tags=["Brands API"])
 
-@company_controller.post("/agency")
+@brand_controller.post("/agency")
 def save_agency(data: CompanyData, user_id: UUID = Body()):
     return service.save_agency(data, str(user_id))
 
-@company_controller.get("/agency")
+@brand_controller.get("/agency")
 def get_agency(user_id: str):
     return service.get_agency(str(user_id))
 
 
-@company_controller.post("/posts",summary= "Create brand posts")
+@brand_controller.post("/posts", summary="Create brand posts")
 def save_posts( data: str = Form(...),
                 user_id: UUID = Form(...),
                 file: UploadFile = File(...)):
@@ -85,23 +85,23 @@ def save_posts( data: str = Form(...),
 #     except Exception as e:
 #         raise HTTPException(status_code=400, detail=f"Failed to save post: {str(e)}")
 
-@company_controller.get("/posts",summary= "Get brand posts by brand_id")
+@brand_controller.get("/posts", summary="Get brand posts by brand_id")
 def get_posts(user_id: UUID):
     return service.get_posts(str(user_id))
 
 
-@company_controller.get("/post",summary= "Get brand post with full description")
+@brand_controller.get("/post", summary="Get brand post with full description")
 def get_posts(user_id: UUID,post_id: UUID):
     return service.get_post(str(user_id),str(post_id))
 
 
 
 
-@company_controller.get("/posts/key-value-example",summary= "Dummy example")
+@brand_controller.get("/posts/key-value-example", summary="Dummy example")
 def example_key_value_pairs(post: CompanyPost):
     return JSONResponse(content=post.dict())
 
-@company_controller.put("/update_post",summary= "Update brand post")
+@brand_controller.put("/update_post", summary="Update brand post")
 def update_post(user_id:UUID = Form(...),
                 use_existing_image:bool = Form(...),
                 data: str = Form(...),
@@ -212,7 +212,7 @@ def update_post(user_id:UUID = Form(...),
 #         raise HTTPException(status_code=400, detail=f"Failed update : {str(e)}")
 #
 
-@company_controller.post("/update_status",summary= "Update brand post status")
+@brand_controller.post("/update_status", summary="Update brand post status")
 def pause(post_id:UUID,status: Status):
     return service.update_status(post_id,status.value)
 

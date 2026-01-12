@@ -82,7 +82,7 @@ def update_status(post_id, status):
 
 def get_subscribers(post_id):
     query = {
-        "_id": post_id,
+        "post_id": post_id,
         "$or": [
             {"payment_status": False},
             {"payment_status": {"$exists": False}}
@@ -102,7 +102,7 @@ def get_subscribers(post_id):
 
 
 def get_settled_submissions(post_id):
-    docs = repo_manager.brand_post_submissions.read_all({"_id":post_id,"payment_status":True})
+    docs = repo_manager.brand_post_submissions.read_all({"post_id":post_id,"payment_status":True})
     ans = []
     for doc in docs:
         influencer_id = doc['influencer_id']

@@ -24,7 +24,7 @@ def get_creator(user_id):
 def submit_proof(influencer_id, post_id, proofs):
     proofs = proofs.model_dump(mode="json")
     proofs["influencer_id"] = influencer_id
-    n = repo_manager.brand_post_submissions.upsert({"_id":post_id}, proofs)
+    n = repo_manager.brand_post_submissions.upsert({"post_id":post_id,"influencer_id":influencer_id}, proofs)
     return JSONResponse(status_code=200, content ={'modified_count':n.modified_count,'matched_count':n.matched_count,'message':"Updated proof successfully"})
 
 def get_posts(page_size,last_value,direction,sort_field):
@@ -131,14 +131,14 @@ def paginate_by_reward(
 
 
 def subscribe_to_brand(influencer_id, post_id):
-    n = repo_manager.brand_post_submissions.upsert({"_id":post_id}, {"influencer_id": influencer_id})
+    n = repo_manager.brand_post_submissions.upsert({"post_id":post_id}, {"influencer_id": influencer_id})
     logger.info(f"Matched count: {n.matched_count}, Modified count: {n.modified_count}")
     return JSONResponse(status_code=200, content={'modified_count': n.modified_count, 'matched_count': n.matched_count,
                                                   'message': "Updated proof successfully"})
 
 
 def is_influencer_subscribed(influencer_id, post_id):
-    doc = repo_manager.brand_post_submissions.read({"_id":post_id, "influencer_id":influencer_id})
+    doc = repo_manager.brand_post_submissions.read({"post_id":post_id, "influencer_id":influencer_id})
 
     if doc:
         return JSONResponse(status_code=200, content={'status':True, 'link':doc.get("link",""),"description":doc.get("description","")})

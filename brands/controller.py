@@ -216,4 +216,11 @@ def update_post(user_id:UUID = Form(...),
 def pause(post_id:UUID,status: Status):
     return service.update_status(post_id,status.value)
 
+@brand_controller.get("/{post_id}/subscribers", summary="Subscribers who subscribed to brand post")
+def get_subscribers(post_id:UUID):
+    return service.get_subscribers(str(post_id))
+
+@brand_controller.get("/{post_id}/settled-submissions",summary="People who got payouts for brand post")
+def get_settled_submissions(post_id:UUID):
+    return service.get_settled_submissions(str(post_id))
 

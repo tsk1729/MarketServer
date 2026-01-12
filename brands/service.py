@@ -1,4 +1,6 @@
 import uuid
+from os import name
+
 from fastapi import status
 from starlette.responses import JSONResponse
 from logger import logger
@@ -76,3 +78,34 @@ def update_status(post_id, status):
     post_id = str(post_id)
     n = repo_manager.brand_posts.update({"_id":post_id}, {"status":status})
     return JSONResponse(status_code=200, content ={'modified_count':n.modified_count,'matched_count':n.matched_count,'message':"Updated status successfully"})
+
+
+def get_subscribers(post_id):
+    query = {
+        "_id": post_id,
+        "$or": [
+            {"payment_status": False},
+            {"payment_status": {"$exists": False}}
+        ]
+    }
+
+    cursor = repo_manager.brand_post_submissions.collection.find(query)
+    docs = list(cursor)
+    ans = []
+    for doc in docs:
+        influencer_id = doc['influencer_id']
+        res = repo_manager.influencers.read(influencer_id)
+        if res.get("payment_status", False):
+            continue
+        ans.append(res.get("name", "Private"))
+    return JSONResponse(status_code=200, content ={'data':ans})
+
+
+def get_settled_submissions(post_id):
+    docs = repo_manager.brand_post_submissions.read_all({"_id":post_id,"payment_status":True})
+    ans = []
+    for doc in docs:
+        influencer_id = doc['influencer_id']
+        res = repo_manager.influencers.read(influencer_id)
+        ans.append(res.get("name", "Private"))
+    return JSONResponse(status_code=200, content ={'data':ans})
